@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Билет на выставку №25</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700&family=Unbounded:wght@500;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --bg: #ECEDF3;
+  --card: #FFFFFF;
+  --ink: #15141C;
+  --muted: #5C5B6B;
+  --line: #CFD0DC;
+  --focus: #3D5AFE;
+  --frame: #1B1A26;
+  --gold: #C9A64B;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #13121A;
+    --card: #1D1C27;
+    --ink: #F1F0F6;
+    --muted: #A5A4B5;
+    --line: #38374A;
+    --focus: #8EA2FF;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #13121A;
+  --card: #1D1C27;
+  --ink: #F1F0F6;
+  --muted: #A5A4B5;
+  --line: #38374A;
+  --focus: #8EA2FF;
+  color-scheme: dark;
+}
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+  min-height: 100%;
+  background: var(--bg);
+}
+*, *::before, *::after { box-sizing: inherit; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Golos Text', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+.wrap { padding: 24px 16px 40px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+.card, .ticket {
+  max-width: 420px;
+  margin: 0 auto;
+  background: var(--card);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--line), 0 22px 44px -26px rgba(20, 20, 40, .5);
+}
+
+/* code entry */
+.entry { padding: 28px 24px 26px; }
+.entry-title {
+  margin: 0 0 8px;
+  font-family: 'Unbounded', 'Golos Text', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+.entry p { margin: 0 0 18px; color: var(--muted); }
+.entry label { display: block; font-weight: 500; margin-bottom: 6px; }
+.entry input {
+  width: 100%;
+  font: inherit;
+  font-size: 1.15rem;
+  letter-spacing: .12em;
+  padding: 12px 14px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.err { color: #C62828; margin: 12px 0 0 !important; font-weight: 500; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .err { color: #FF8A80; } }
+:root[data-theme="dark"] .err { color: #FF8A80; }
+
+.btn {
+  font-family: 'Unbounded', 'Golos Text', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: .95rem;
+  background: var(--gold);
+  color: var(--frame);
+  border: 0;
+  border-radius: 10px;
+  padding: 14px 22px;
+  cursor: pointer;
+}
+.btn:active { transform: translateY(1px); }
+
+/* ticket stage */
+.stage {
+  position: relative;
+  min-height: 380px;
+  background: var(--a1, var(--frame));
+  color: var(--a-ink, #F6F4FA);
+}
+.reveal {
+  position: relative;
+  min-height: 380px;
+  padding: 30px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity .7s ease .45s;
+}
+.open .reveal { opacity: 1; }
+.exnum { margin: 0 0 10px; font-weight: 500; opacity: .85; }
+.aname {
+  margin: 0;
+  font-family: 'Unbounded', 'Golos Text', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.9rem, 9vw, 2.7rem);
+  line-height: 1.05;
+  outline-offset: 6px;
+}
+.ayears { margin: 10px 0 20px; font-size: 1.05rem; }
+.plate { margin: 0 0 20px; padding: 0 0 0 14px; border-left: 4px solid var(--a-ink, #fff); }
+.plate img {
+  display: block;
+  width: calc(100% + 14px);
+  margin: 0 0 12px -14px;
+  max-height: 210px;
+  object-fit: cover;
+  border: 4px solid var(--gold);
+}
+.ptitle {
+  display: block;
+  font-family: 'Unbounded', 'Golos Text', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+.pmeta { display: block; font-size: .9rem; opacity: .85; margin-top: 2px; }
+.paltxt { margin: 16px 0 0; font-size: .95rem; }
+.palnote { margin: 2px 0 0; font-size: .85rem; opacity: .8; }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; }
+.chips li {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--a-ink, #fff);
+}
+
+.cover {
+  position: absolute;
+  inset: 0;
+  background: var(--frame);
+  color: #F6F4FA;
+  box-shadow: inset 0 0 0 10px var(--frame), inset 0 0 0 12px var(--gold);
+  padding: 36px 34px 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform .9s cubic-bezier(.7, 0, .2, 1);
+}
+.open .cover { transform: translateY(-101%); pointer-events: none; visibility: hidden; transition: transform .9s cubic-bezier(.7, 0, .2, 1), visibility 0s linear .9s; }
+.q {
+  font-family: 'Unbounded', 'Golos Text', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 7rem;
+  line-height: 1;
+  color: var(--gold);
+}
+.cv-title {
+  margin: 0 0 6px;
+  font-family: 'Unbounded', 'Golos Text', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+.cv-sub { margin: 0 0 20px; opacity: .85; }
+
+.perf {
+  position: relative;
+  margin: 0 18px;
+  border-top: 2px dashed var(--line);
+}
+.perf::before, .perf::after {
+  content: "";
+  position: absolute;
+  top: -11px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+.perf::before { left: -28px; }
+.perf::after { right: -28px; }
+
+.body { padding: 22px 24px 28px; }
+.facts { margin: 0; display: grid; gap: 12px; }
+.facts div { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: baseline; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; font-weight: 700; }
+#secret { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line); }
+#secret h2 {
+  margin: 20px 0 6px;
+  font-family: 'Unbounded', 'Golos Text', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: .95rem;
+}
+#secret h2:first-child { margin-top: 0; }
+#secret p { margin: 0; }
+#secret ul { margin: 0; padding-left: 20px; }
+#secret li { margin-bottom: 6px; }
+.hush { margin-top: 20px !important; color: var(--muted); }
+.dhint { color: var(--muted); margin-bottom: 8px !important; }
+#secret li strong { font-weight: 700; }
+#secret p.task {
+  padding: 12px 14px;
+  background: var(--bg);
+  border-left: 5px solid var(--gold);
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover, .open .cover, .reveal { transition: none !important; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <section id="entry" class="card entry" hidden>
+    <h1 class="entry-title">Билет на выставку №25</h1>
+    <p>Введи код из сообщения, чтобы узнать своего художника.</p>
+    <form id="codeForm" novalidate>
+      <label for="codeInput">Код билета</label>
+      <input id="codeInput" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="12">
+      <button class="btn" type="submit">Показать билет</button>
+      <p id="codeErr" class="err" role="alert" hidden></p>
+    </form>
+  </section>
+
+  <article id="ticket" class="ticket" hidden>
+    <div id="stage" class="stage">
+      <div class="reveal" aria-live="polite">
+        <p id="exnum" class="exnum"></p>
+        <figure class="plate">
+          <img id="apic" alt="" hidden>
+          <figcaption><span id="atitle" class="ptitle"></span><span id="ameta" class="pmeta"></span></figcaption>
+        </figure>
+        <h1 id="aname" class="aname" tabindex="-1"></h1>
+        <p id="ayears" class="ayears"></p>
+        <ul id="chips" class="chips" aria-label="Палитра костюма"></ul>
+        <p class="paltxt"><strong>Цветовая гамма костюма:</strong> <span id="apal"></span></p>
+        <p class="palnote">Это рекомендация, одеться можно и иначе.</p>
+      </div>
+      <div class="cover">
+        <span class="q" aria-hidden="true">?</span>
+        <div>
+          <p class="cv-title">Выставка №25</p>
+          <p class="cv-sub">Твой художник спрятан за рамой. Открой, когда рядом никого нет.</p>
+          <button id="openBtn" class="btn" type="button">Открыть</button>
+        </div>
+      </div>
+    </div>
+    <div class="perf" aria-hidden="true"></div>
+    <div class="body">
+      <dl class="facts">
+        <div><dt>Дата</dt><dd>17 октября, суббота</dd></div>
+        <div><dt>Время</dt><dd>14:00–20:00</dd></div>
+        <div><dt>Место</dt><dd>г. Новосибирск, ул. Залесского, 14</dd></div>
+        <div><dt>Дресс-код</dt><dd>твой художник</dd></div>
+        <div><dt>С собой</dt><dd>хорошее настроение</dd></div>
+      </dl>
+      <div id="secret" hidden>
+        <h2>Кто это</h2>
+        <p id="aabout"></p>
+        <h2>Как одеться</h2>
+        <p class="dhint">Выбери один вариант или смешай несколько.</p>
+        <ul id="adress"></ul>
+        <h2>Секретное задание на вечер</h2>
+        <p id="atask" class="task"></p>
+        <p class="hush">Это секрет. На вечере остальные будут угадывать твоего художника по образу, а про задание расскажешь в конце.</p>
+      </div>
+    </div>
+  </article>
+
+</main>
+
+<script>
+(function () {
+  var ARTISTS = {
+    vangogh: {
+      n: 1, name: 'Винсент Ван\u00A0Гог', years: '1853–1890',
+      title: '«Звёздная ночь»', meta: '1889, Музей современного искусства, Нью-Йорк',
+      about: 'Писал густыми вихрями краски. За жизнь создал около двух тысяч работ, а продал очень мало.',
+      self: 'Соломенная шляпа, рыжая борода (нарисованная или накладная), простая синяя куртка и бумажный подсолнух в руке.',
+      style: 'Одежда в синих и жёлтых тонах с «мазками»: вихри и густые штрихи, как в его пейзажах. Их можно нарисовать маркером по футболке или выложить цветным скотчем.',
+      paint: 'Тёмно-синяя одежда с вихрями на рукавах, жёлтая луна и звёзды из картона на груди.',
+      pal: 'ультрамарин, жёлтый, голубой, тёмно-синий',
+      task: 'Ты непризнанный гений. Каждый раз, когда хвалят чужую работу, тяжело вздыхай: «Меня при жизни никто не ценил». К концу вечера добейся, чтобы хоть кто-нибудь назвал твой рисунок шедевром.',
+      bg: '#1D3B8B', ink: '#FFF3C4', chips: ['#F2C230', '#7DA2E6', '#0F1F52']
+    },
+    dali: {
+      n: 2, name: 'Сальвадор Дали', years: '1904–1989',
+      title: '«Постоянство памяти»', meta: '1931, Музей современного искусства, Нью-Йорк',
+      about: 'Сюрреалист с закрученными усами, который рисовал сны и плавящиеся часы.',
+      self: 'Тонкие усы, закрученные вверх (подведи карандашом или сделай из проволоки), чёрный пиджак или жилет и трость.',
+      style: 'Песочные, коричневые и голубые тона, как в его пустынях, и странные детали не на своём месте: часы на ботинке, карман, из которого «вытекает» ткань.',
+      paint: 'Бежевая одежда и «плавящиеся часы» из картона или фольги, перекинутые через руку, плечо или ремень.',
+      pal: 'охра, голубой, коричневый, песочный',
+      task: 'Три раза за вечер вставь в разговор «сон, который мне приснился сегодня ночью» и расскажи его с абсолютно серьёзным лицом. Чем безумнее, тем лучше. Пусть никто не поймёт, правда это или выдумка.',
+      bg: '#C9853C', ink: '#1E1408', chips: ['#7FB5DA', '#3B2A17', '#E9C98B']
+    },
+    picasso: {
+      n: 3, name: 'Пабло Пикассо', years: '1881–1973',
+      title: '«Девочка на шаре»', meta: '1905, ГМИИ имени Пушкина, Москва',
+      about: 'Один из создателей кубизма: разбирал предметы на геометрические части и собирал заново.',
+      self: 'Тельняшка или полосатая футболка, берет или платок на голове.',
+      style: 'Кубизм: геометрические заплатки из бумаги или ткани на одежде, а на лице подведённые линии, будто оно разобрано на плоскости.',
+      paint: 'Розовая и голубая одежда, лёгкая юбка или шарф и большой шар или мяч в руках.',
+      pal: 'синий, розовый, светло-синий, тёмно-синий',
+      task: 'Каждый портрет рисуй по-кубистски: глаза, нос и рот в самых неожиданных местах. На любые претензии отвечай: «Вы просто не умеете смотреть с трёх сторон сразу».',
+      bg: '#27497D', ink: '#F6E4E1', chips: ['#E7A6A1', '#8FB0D9', '#132540']
+    },
+    kahlo: {
+      n: 4, name: 'Фрида Кало', years: '1907–1954',
+      title: '«Две Фриды»', meta: '1939, Музей современного искусства, Мехико',
+      about: 'Писала яркие автопортреты, полные символов, и носила традиционные мексиканские наряды.',
+      self: 'Венок или бумажные цветы в причёске, косы, густые брови, красная помада, крупные серьги.',
+      style: 'Мексиканский народный стиль: яркие вышитые блузы, длинные пёстрые юбки, цветы и крупные бусы.',
+      paint: 'Белое кружевное платье с высоким воротом и красная нить или лента, идущая от груди к руке.',
+      pal: 'зелёный, красный, розовый, жёлтый',
+      task: 'Ты знаешь всё о любви, страсти и судьбе. Дай трём гостям драматичный жизненный совет таким тоном, будто это последнее, что ты скажешь в жизни. Цветок в руке усилит эффект.',
+      bg: '#1F6E4A', ink: '#FFF0E0', chips: ['#D62B3B', '#F4A6B8', '#F2C94C']
+    },
+    malevich: {
+      n: 5, name: 'Казимир Малевич', years: '1879–1935',
+      title: '«Чёрный квадрат»', meta: '1915, Третьяковская галерея, Москва',
+      about: 'Основатель супрематизма. Его «Чёрный квадрат» изменил представление о том, чем может быть картина.',
+      self: 'Строгий тёмный костюм и белая рубашка, серьёзное выражение лица, как на его портретах.',
+      style: 'Супрематизм: одежда из чётких геометрических фигур (квадрат, круг, крест, прямоугольники) в чёрном, красном и белом.',
+      paint: 'Белая одежда и чёрный картонный квадрат на груди, красный квадрат в руке или на шарфе.',
+      pal: 'чёрный, красный, белый, серый',
+      task: 'Рисуй только квадраты и уверенно объясняй, что это шедевр, который перевернёт искусство. Не меняй серьёзное выражение лица, пока кто-нибудь не согласится с тобой.',
+      bg: '#121212', ink: '#F2F0EA', chips: ['#D8322B', '#F2F0EA', '#7A7A7A']
+    },
+    monet: {
+      n: 6, name: 'Клод Моне', years: '1840–1926',
+      title: '«Впечатление. Восход солнца»', meta: '1872, музей Мармоттан-Моне, Париж',
+      about: 'Основа импрессионизма: писал свет и воду, а его картина дала имя всему направлению.',
+      self: 'Соломенная шляпа, борода (можно нарисованная) или очки, лёгкий пиджак, а в руках мольберт или кисть.',
+      style: 'Импрессионизм: пастельные, будто размытые цвета, лёгкие струящиеся ткани, цветочные принты и шарф.',
+      paint: 'Серо-голубая одежда, как туман над водой, и оранжевый круг-«солнце» на груди или в руке.',
+      pal: 'сиреневый, зелёный, розовый, васильковый',
+      task: 'Ты одержим светом. Минимум три раза за вечер замри, вздохни и объяви, что свет сейчас «просто волшебный», а потом попроси кого-нибудь подвинуться, чтобы не загораживать его.',
+      bg: '#C7CDEB', ink: '#1F2A44', chips: ['#7FB59A', '#E9B7C8', '#5F7FBF']
+    },
+    warhol: {
+      n: 7, name: 'Энди Уорхол', years: '1928–1987',
+      title: '«Банки супа Кэмпбелл»', meta: '1962, Музей современного искусства, Нью-Йорк',
+      about: 'Король поп-арта: превращал банки супа и портреты знаменитостей в яркие серии.',
+      self: 'Серебристый или светлый парик, чёрная водолазка, тёмные очки, в руке фотоаппарат или телефон.',
+      style: 'Поп-арт: яркие неоновые цвета блоками и повторяющиеся принты, например футболка с одним и тем же рисунком несколько раз.',
+      paint: 'Красно-белая одежда и картонная «банка» на груди с надписью «Суп».',
+      pal: 'ярко-розовый, голубой, жёлтый, чёрный',
+      task: 'Каждому гостю пообещай его «пятнадцать минут славы» и сфотографируй на телефон. Постарайся успеть со всеми до конца вечера.',
+      bg: '#F03E8D', ink: '#101010', chips: ['#22C1E8', '#FFE14D', '#101010']
+    },
+    klimt: {
+      n: 8, name: 'Густав Климт', years: '1862–1918',
+      title: '«Поцелуй»', meta: '1907–1908, Бельведер, Вена',
+      about: 'Мастер венского модерна: украшал картины настоящим золотом и орнаментами.',
+      self: 'Длинная свободная рубашка или халат, борода, серьёзный взгляд.',
+      style: 'Золото и орнаменты: золотая бумага или фольга, спирали, мозаичные узоры, круги и квадраты на тёмном фоне.',
+      paint: 'Золотой халат или накидка с чёрно-белыми прямоугольниками и кругами, цветочный венок на голове.',
+      pal: 'золотой, тёмно-зелёный, светло-золотой, тёмно-коричневый',
+      task: 'Ты ценишь красоту и роскошь. Сделай не меньше трёх очень пафосных комплиментов гостям, например: «Вы сияете, как золотая мозаика». Говори с чувством.',
+      bg: '#C79A2A', ink: '#241A08', chips: ['#1F4D46', '#F0DFA0', '#241A08']
+    },
+    munch: {
+      n: 9, name: 'Эдвард Мунк', years: '1863–1944',
+      title: '«Крик»', meta: '1893, Национальная галерея, Осло',
+      about: 'Норвежский экспрессионист: писал не то, что видит, а то, что чувствует.',
+      self: 'Тёмное пальто или костюм, бледный тон лица, серьёзный взгляд.',
+      style: 'Экспрессионизм: волнистые линии на одежде, резкие контрасты, оранжево-красные и тёмно-синие пятна.',
+      paint: 'Тёмная одежда, оранжево-красный шарф или накидка, руки прижаты к щекам, рот открыт.',
+      pal: 'оранжево-красный, тёмно-синий, песочный, кирпичный',
+      task: 'Когда кто-нибудь произнесёт слово «шедевр», прижми ладони к щекам и коротко закричи, как на картине. Сделай так минимум три раза за вечер. Если слово не звучит, произнеси его сам.',
+      bg: '#E2582D', ink: '#14182E', chips: ['#1E2A47', '#F0B36A', '#7B2F1F']
+    },
+    matisse: {
+      n: 10, name: 'Анри Матисс', years: '1869–1954',
+      title: '«Танец»', meta: '1910, Эрмитаж, Санкт-Петербург',
+      about: 'Лидер фовизма: чистые яркие цвета. В поздние годы создавал композиции из вырезанной цветной бумаги.',
+      self: 'Очки в тонкой оправе, бородка, светлый пиджак или халат.',
+      style: 'Фовизм: чистые яркие цвета без полутонов, крупные цветные пятна и вырезки из бумаги на одежде.',
+      paint: 'Красная или оранжевая одежда на синем или зелёном фоне. Можно встать в круг с другими гостями, взявшись за руки.',
+      pal: 'коралловый, синий, зелёный, жёлтый',
+      task: 'Тайком вырежи из цветной бумаги пять фигурок и незаметно подложи их гостям: в карман, под тарелку, в кружку. В конце вечера узнай, кто их нашёл.',
+      bg: '#F26B4E', ink: '#14213D', chips: ['#2255C4', '#3FA34D', '#F5D547']
+    }
+  };
+
+  var CODES = {
+    '2jhd28': 'kahlo',
+    '3w7twk': 'klimt',
+    '5tcd6q': 'matisse',
+    '687yv8': 'warhol',
+    'c6zpkc': 'monet',
+    'cg64s4': 'vangogh',
+    'dhtn4v': 'dali',
+    'k399nk': 'picasso',
+    'vxdzg2': 'munch',
+    'w68phw': 'malevich'
+  };
+
+  function $(id) { return document.getElementById(id); }
+  var ticket = $('ticket'), entry = $('entry'), stage = $('stage');
+  var form = $('codeForm'), input = $('codeInput'), err = $('codeErr'), openBtn = $('openBtn');
+  var current = null;
+
+  function normalize(s) { return String(s || '').trim().toLowerCase(); }
+  function lookup(code) {
+    return Object.prototype.hasOwnProperty.call(CODES, code) ? CODES[code] : null;
+  }
+  function readCode() {
+    var raw = (location.hash || '').replace(/^#\/?/, '');
+    if (!raw) {
+      try { raw = new URLSearchParams(location.search).get('k') || ''; } catch (e) { raw = ''; }
+    }
+    if (raw.indexOf('=') > -1) raw = raw.split('=').pop();
+    return normalize(raw);
+  }
+
+  function showEntry(message) {
+    ticket.hidden = true;
+    entry.hidden = false;
+    if (message) { err.textContent = message; err.hidden = false; } else { err.hidden = true; }
+  }
+
+  function showTicket(id) {
+    current = id;
+    ticket.classList.remove('open');
+    stage.style.removeProperty('--a1');
+    stage.style.removeProperty('--a-ink');
+    $('secret').hidden = true;
+    $('exnum').textContent = '';
+    $('aname').textContent = '';
+    $('ayears').textContent = '';
+    $('chips').textContent = '';
+    $('atitle').textContent = '';
+    $('ameta').textContent = '';
+    $('apal').textContent = '';
+    $('apic').hidden = true;
+    $('apic').removeAttribute('src');
+    entry.hidden = true;
+    ticket.hidden = false;
+  }
+
+  function openTicket() {
+    var a = ARTISTS[current];
+    if (!a) return;
+    $('exnum').textContent = 'Экспонат №' + a.n + ' из 10';
+    $('aname').textContent = a.name;
+    $('ayears').textContent = a.years;
+    $('atitle').textContent = a.title;
+    $('ameta').textContent = a.meta;
+    $('apal').textContent = a.pal;
+    var pic = $('apic');
+    pic.hidden = true;
+    pic.onload = function () { pic.hidden = false; };
+    pic.onerror = function () { pic.hidden = true; };
+    pic.alt = a.title;
+    pic.src = 'art/' + current + '.jpg';
+    var chips = $('chips');
+    chips.textContent = '';
+    [a.bg].concat(a.chips).forEach(function (c) {
+      var li = document.createElement('li');
+      li.style.background = c;
+      chips.appendChild(li);
+    });
+    $('atask').textContent = a.task;
+    $('aabout').textContent = a.about;
+    var ul = $('adress');
+    ul.textContent = '';
+    [['Как сам художник: ', a.self], ['В стиле его картин: ', a.style], ['Как картина ' + a.title + ': ', a.paint]].forEach(function (row) {
+      var li = document.createElement('li');
+      var b = document.createElement('strong');
+      b.textContent = row[0];
+      li.appendChild(b);
+      li.appendChild(document.createTextNode(row[1]));
+      ul.appendChild(li);
+    });
+    stage.style.setProperty('--a1', a.bg);
+    stage.style.setProperty('--a-ink', a.ink);
+    $('secret').hidden = false;
+    ticket.classList.add('open');
+    $('aname').focus({ preventScroll: true });
+  }
+
+  function init() {
+    var code = readCode();
+    if (!code) { showEntry(''); return; }
+    var id = lookup(code);
+    if (id) { showTicket(id); } else { showEntry('Такого билета нет. Проверь ссылку или код в сообщении.'); }
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var code = normalize(input.value);
+    var id = lookup(code);
+    if (id) { showTicket(id); } else { showEntry('Такого кода нет. Код состоит из 6 символов, проверь его в сообщении.'); }
+  });
+  openBtn.addEventListener('click', openTicket);
+  window.addEventListener('hashchange', init);
+  init();
+})();
+</script>
+</body>
+</html>
